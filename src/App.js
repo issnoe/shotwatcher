@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+type Circle = { type: 'Circle' }
+type Cross = { type: 'Cross' }
+type Empty = { type: 'Empty' }
+
+type Cell
+  = Circle
+  | Cross
+  | Empty
+
 class App extends Component {
   render() {
     return (
