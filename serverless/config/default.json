@@ -1,0 +1,8 @@
+{
+    "db": {
+        "url": "mongodb://api:TZfh69DQLE51HOg5@matersoft-shard-00-00-q7qvy.azure.mongodb.net:27017,matersoft-shard-00-01-q7qvy.azure.mongodb.net:27017,matersoft-shard-00-02-q7qvy.azure.mongodb.net:27017/markdow/admin?authSource=admin&readPreference=primary&replicaSet=matersoft-shard-0&ssl=true",
+        "host": "localhost",
+        "port": 27017,
+        "dbName": "markdow"
+    },
+}

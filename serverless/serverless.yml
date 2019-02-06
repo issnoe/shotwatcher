@@ -1,0 +1,24 @@
+service: markdow-lambda-api
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  stage: dev
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-include-dependencies
+
+package:
+  exclude:
+    - node_modules/**
+    - README.md
+
+functions:
+  main:
+    handler: handler.main
+    events:
+      - http: ANY /
+      - http: ANY {proxy+}
+
