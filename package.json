@@ -2,12 +2,13 @@
   "name": "shotwatcher",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://issnoe.github.io/shotwatcher/",
   "dependencies": {
     "@material-ui/core": "^3.9.0",
     "@material-ui/icons": "^3.0.2",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3",
@@ -19,7 +20,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:babel": "babel src/ -d lib/",
-    "prepublish": "yarn run build"
+    "prepublish": "yarn run build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "deploy:manual": "node scripts/deploy.js"
   },
   "eslintConfig": {
     "extends": "react-app"
