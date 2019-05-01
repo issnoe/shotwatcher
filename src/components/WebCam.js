@@ -87,7 +87,7 @@ export class WebCamera extends Component {
               ref={node => this.webcam = node}
             />
           </Grid>
-          <Grid item xs={12} md={12}>
+          {/* <Grid item xs={12} md={12}>
             <Button onClick={this.handleClick} variant="contained" color="primary" style={{
               marginRight: '20'
             }}>
@@ -104,7 +104,7 @@ export class WebCamera extends Component {
                 marginLeft: '10'
               }} />
             </Button>
-          </Grid>
+          </Grid> */}
 
         </Grid>
 

@@ -17,7 +17,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
+import CameraIcon from '@material-ui/icons/Camera';
+import CustomizedBadge from './CustomizedBadge'
 import { WebCamera } from './WebCam'
 import { withGetScreen } from 'react-getscreen'
 const WebCameraRender = withGetScreen(WebCamera)
@@ -117,46 +119,74 @@ function BottomAppBar(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Paper square className={classes.paper}>
-        <Typography className={classes.text} variant="h5" gutterBottom>
-          Inbox
-        </Typography>
-        <Grid container spacing={16}>
-          <Grid item md={6}>
-            < WebCameraRender></WebCameraRender>
-          </Grid>
-          <Grid item md={6} >
-            <List className={classes.list}>
-              {messages.map(({ id, primary, secondary, person }) => (
-                <Fragment key={id}>
-                  {id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}
-                  {id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}
-                  <ListItem button>
-                    <Avatar alt="Profile Picture" src={person} />
-                    <ListItemText primary={primary} secondary={secondary} />
-                  </ListItem>
-                </Fragment>
-              ))}
-            </List>
-          </Grid>
+
+      <Typography className={classes.text} variant="h5" gutterBottom>
+        <ListItem button>
+          <Avatar alt="Profile Picture" src={'./img/dians/s.jpg'} />
+          <Avatar alt="Profile Picture" src={'./img/guns/s.jpg'} />
+
+          <ListItemText primary={'Arma: 12 mm'} secondary={'Diana:Basica'} />
+        </ListItem>
+      </Typography>
+      <Grid container spacing={16}>
+        <Grid item md={6}>
+          <WebCameraRender></WebCameraRender>
         </Grid>
-      </Paper>
+        <Grid item md={6} style={{ maxHeight: 500, overflow: 'auto' }}>
+
+          <List className={classes.list}>
+            {messages.map(({ id, primary, secondary, person }) => (
+              <Fragment key={id}>
+                {id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}
+                {id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}
+                <ListItem button>
+                  <CustomizedBadge></CustomizedBadge>
+                  <Avatar alt="Profile Picture" src={'./img/guns/s.jpg'} />
+                  <ListItemText primary={primary} secondary={secondary} />
+                  <img style={{
+                    margin: 'auto',
+                    display: 'block',
+                    maxWidth: '10%',
+                    maxHeight: '10%',
+                  }} alt="complex" src={'./img/dians/s.jpg'} />
+                </ListItem>
+              </Fragment>
+            ))}
+          </List>
+
+        </Grid>
+
+      </Grid>
 
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <IconButton color="inherit" aria-label="Open drawer">
             <MenuIcon />
           </IconButton>
-          <Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-            <AddIcon />
+          <Fab color="secondary" aria-label="Add" className={classes.fabButton}  >
+            <CameraIcon />
           </Fab>
           <div>
-            <IconButton color="inherit">
-              <SearchIcon />
-            </IconButton>
-            <IconButton color="inherit">
-              <MoreIcon />
-            </IconButton>
+            <ListItem button>
+              <ListItemText secondary={
+                <React.Fragment>
+                  <Typography component="span" style={{
+                    color: 'white'
+                  }}>
+                    Luis Noé Jasso
+                  </Typography>
+                  <Typography style={{
+                    color: 'white'
+                  }}>
+                    {" — Nivel Dios"}
+                  </Typography>
+                </React.Fragment>
+              } />
+              <Avatar alt="Profile Picture" style={{
+                width: 55,
+                height: 55,
+              }} src={'./img/guns/s.jpg'} />
+            </ListItem>
           </div>
         </Toolbar>
       </AppBar>
