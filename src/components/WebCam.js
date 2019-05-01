@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Webcam from "react-webcam";
 import Grid from '@material-ui/core/Grid';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import CreateIcon from '@material-ui/icons/Send';
 import CameraIcon from '@material-ui/icons/Camera';
 import Paper from '@material-ui/core/Paper';
@@ -19,6 +17,7 @@ export class WebCamera extends Component {
       tab: 0
     };
   }
+
   handleClick = () => {
     const screenshot = this.webcam.getScreenshot();
     const screenshots = this.state.screenshots;
@@ -26,6 +25,16 @@ export class WebCamera extends Component {
     this.setState({ screenshots });
   }
   render() {
+    const useFrontalCamera = (this.props.isMobile() === true || this.props.isTablet() === true) ?
+      {
+        facingMode: { exact: "environment" }
+      } :
+      {
+        facingMode: "user"
+      }
+    console.log(useFrontalCamera);
+
+
     const _renderScreenShots = this.state.screenshots.map((item) => {
       return (<Grid container spacing={16}>
         <Grid item>
@@ -61,7 +70,6 @@ export class WebCamera extends Component {
       </Grid>)
     })
 
-
     return (
       <div>
         <Paper style={{
@@ -72,6 +80,7 @@ export class WebCamera extends Component {
           <Grid container>
             <Grid item xs={12} md={12}>
               <Webcam
+                videoConstraints={useFrontalCamera}
                 audio={false}
                 width='100%'
                 height='100%'
