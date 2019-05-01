@@ -3,19 +3,16 @@ import { withGetScreen } from 'react-getscreen'
 import { WebCamera } from './components/WebCam'
 import { Route, HashRouter, Switch } from 'react-router-dom'
 import LoginPage from './screens/login/LoginPage'
-
-const WebCameraRender = withGetScreen(WebCamera)
+import BottomAppBar from './components/BottomAppBar'
 class App extends Component {
   render() {
     return (
       <HashRouter>
         <Switch>
-          <Route path="/" component={LoginPage} />
-          {/* <Route path="/reset/password/:token" component={ResetPassword} />
-          <Route path="/invite/:token" component={CompletePage} /> */}
+          <Route path="/access" component={LoginPage} />
+          <Route path="/" component={BottomAppBar} />
         </Switch>
       </HashRouter>
-      //<WebCameraRender></WebCameraRender>
     );
   }
 }
