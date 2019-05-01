@@ -70,17 +70,17 @@ export default class RequestPassword extends React.Component {
         <React.Fragment>
 
           <Button onClick={this.handleClickOpen} variant="outlined" color="secondary" >
-            {'Forgot password ?'}
+            {'Olvide la contraseña ?'}
           </Button>
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title">{'Forgot password ?'}</DialogTitle>
+            <DialogTitle id="form-dialog-title">{'Olvide la contraseña ?'}</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {'Instructions to change your password will be sent.'}
+                {'Se enviaran las instrucciones para restablecer la contraseña.'}
               </DialogContentText>
               <Grid >
                 <TextField
@@ -89,8 +89,7 @@ export default class RequestPassword extends React.Component {
                   name="email"
                   id="email"
                   margin="normal"
-
-                  placeholder="Email"
+                  placeholder="Correo"
                   autoComplete="off"
                   autoFocus={true}
                   fullWidth
@@ -114,10 +113,10 @@ export default class RequestPassword extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
-                {'Cancel'}
+                {'Cancelar'}
               </Button>
               <Button onClick={() => this.onSend()} color="primary">
-                {'Send'}
+                {'Enviar'}
               </Button>
             </DialogActions>
           </Dialog>
