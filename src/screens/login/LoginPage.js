@@ -43,7 +43,13 @@ class LoginPage extends Component {
         this.lang = '';
 
         this.handleText = this.handleText.bind(this);
+        this.attempt = this.attempt.bind(this);
 
+    }
+
+    attempt() {
+        this.props.history.push('/')
+        console.log();
     }
 
     handleText(int, val) {

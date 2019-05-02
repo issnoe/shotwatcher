@@ -20,7 +20,7 @@ import HandleGunDiana from '../screens/realtime/HandleGunDiana'
 import CustomizedBadge from './CustomizedBadge'
 import { WebCamera } from './WebCam'
 import { withGetScreen } from 'react-getscreen'
-import { shots } from '../database/dummy'
+import { shots, guns, dians } from '../database/dummy'
 
 const WebCameraRender = withGetScreen(WebCamera)
 
@@ -57,75 +57,90 @@ const styles = theme => ({
   },
 });
 
-function BottomAppBar(props) {
-  const { classes } = props;
-  return (
-    <React.Fragment>
-      <CssBaseline />
 
-      <Typography className={classes.text} variant="h5" gutterBottom>
-        <HandleGunDiana></HandleGunDiana>
+class BottomAppBar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      diana: '1',
+      gun: '1'
+    }
+    this.setShootSettings = this.setShootSettings.bind(this)
+  }
 
-      </Typography>
-      <Grid container spacing={16}>
-        <Grid item md={6}>
-          <WebCameraRender></WebCameraRender>
+  setShootSettings(newState) {
+    console.log(newState);
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <Typography className={classes.text} variant="h5" gutterBottom>
+          <HandleGunDiana setShootSettings={this.setShootSettings}></HandleGunDiana>
+        </Typography>
+        <Grid container spacing={16}>
+          <Grid item md={6} xs={12}>
+            <WebCameraRender></WebCameraRender>
+          </Grid>
+          <Grid item md={6} xs={12} style={{ maxHeight: 500, overflow: 'auto' }}>
+
+            <List className={classes.list}>
+              {shots.map((shot) => (
+                <Fragment key={shot.id}>
+                  {shot.id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}
+                  {shot.id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}
+                  <ListItem button>
+                    <CustomizedBadge score={shot.score}></CustomizedBadge>
+                    <Avatar alt="Gun" src={shot.gun.src} />
+                    <Avatar alt="Diana type" src={shot.diana.src} />
+                    <ListItemText primary={shot.gun.name} secondary={shot.diana.name} />
+                  </ListItem>
+                </Fragment>
+              ))}
+            </List>
+
+          </Grid>
+
         </Grid>
-        <Grid item md={6} style={{ maxHeight: 500, overflow: 'auto' }}>
 
-          <List className={classes.list}>
-            {shots.map((shot) => (
-              <Fragment key={shot.id}>
-                {shot.id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}
-                {shot.id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}
-                <ListItem button>
-                  <CustomizedBadge score={shot.score}></CustomizedBadge>
-                  <Avatar alt="Diana type" src={shot.diana.src} />
-                  <Avatar alt="Gun" src={shot.gun.src} />
-                  <ListItemText primary={shot.diana.name} secondary={shot.gun.name} />
-                </ListItem>
-              </Fragment>
-            ))}
-          </List>
+        <AppBar position="fixed" color="primary" className={classes.appBar}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton color="inherit" aria-label="Open drawer">
+              <MenuIcon />
+            </IconButton>
+            <Fab color="secondary" aria-label="Add" className={classes.fabButton}  >
+              <CameraIcon />
+            </Fab>
+            <div>
+              <ListItem button>
+                <ListItemText secondary={
+                  <React.Fragment>
+                    <Typography component="span" style={{
+                      color: 'white'
+                    }}>
+                      Luis Noé Jasso
+                      </Typography>
+                    <Typography style={{
+                      color: 'white'
+                    }}>
+                      {" — Nivel Dios"}
+                    </Typography>
+                  </React.Fragment>
+                } />
+                <Avatar alt="Profile Picture" style={{
+                  width: 55,
+                  height: 55,
+                }} src={'./img/guns/s.jpg'} />
+              </ListItem>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </React.Fragment>
+    )
 
-        </Grid>
-
-      </Grid>
-
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
-          <Fab color="secondary" aria-label="Add" className={classes.fabButton}  >
-            <CameraIcon />
-          </Fab>
-          <div>
-            <ListItem button>
-              <ListItemText secondary={
-                <React.Fragment>
-                  <Typography component="span" style={{
-                    color: 'white'
-                  }}>
-                    Luis Noé Jasso
-                  </Typography>
-                  <Typography style={{
-                    color: 'white'
-                  }}>
-                    {" — Nivel Dios"}
-                  </Typography>
-                </React.Fragment>
-              } />
-              <Avatar alt="Profile Picture" style={{
-                width: 55,
-                height: 55,
-              }} src={'./img/guns/s.jpg'} />
-            </ListItem>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
-  );
+  }
 }
 
 BottomAppBar.propTypes = {

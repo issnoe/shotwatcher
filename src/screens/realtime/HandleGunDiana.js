@@ -1,4 +1,6 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,21 +15,53 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Typography } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import ErrorMessage from '../../components/error-message/ErrorSingle';
 import Snack from '../../components/snack';
 import Http from '../../support/Http';
-import RadioGroup from '../../components/RadioGroup'
-export default class RequestPassword extends React.Component {
+import { guns, dians } from '../../database/dummy'
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  formControl: {
+    margin: theme.spacing.unit * 3,
+  },
+  group: {
+    margin: `${theme.spacing.unit}px 0`,
+  },
+});
+
+class RequestPassword extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
       open: false,
-      message: ''
+      message: '',
+      gun: '1',
+      diana: '1'
     };
 
-    this.onSend = this.onSend.bind(this);
+    this.update = this.update.bind(this);
   }
+
+
+
+  handleChange = event => {
+    this.setState({ gun: event.target.value, message: '' });
+  };
+
+  handleChangeDiana = event => {
+    this.setState({ diana: event.target.value, message: '' });
+  };
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -36,46 +70,28 @@ export default class RequestPassword extends React.Component {
     this.setState({ open: false, message: '' });
   };
 
-  async onSend() {
-    if (this.props.email !== '') {
-      const body = {
-        email: this.props.email
-      }
-      let response;
-      let erroTransaction;
-      try {
-        response = await Http.post(`${process.env.REACT_APP_API_URL}/auth/remember-password`, body);
-      } catch (error) {
-        response = error;
-        erroTransaction = true
-
-      }
-      if (erroTransaction !== true) {
-        this.handleClose();
-      }
-      this.setState(state => ({
-        message: response.message,
-      }));
-
-    } else {
-      this.setState({
-        ...this.state,
-        message: "Email is required"
-      })
-    }
+  update() {
+    this.setState({ open: false, message: 'Configuracion de arma actualizado ' });
   }
   //auth/remember-password
   //email
 
   render() {
+    const { classes } = this.props;
+    const gun = guns.find(gun => gun.id === this.state.gun)
+    const dian = dians.find(dian => dian.id === this.state.diana)
+    console.log('gun', gun);
+    console.log('dian', dian);
+
+
     return (
       <div>
         <React.Fragment>
           <Typography>{'Cambia el arma o la diana'}</Typography>
           <ListItem button onClick={this.handleClickOpen}>
-            <Avatar alt="Profile Picture" src={'./img/dians/s.jpg'} />
-            <Avatar alt="Profile Picture" src={'./img/guns/s.jpg'} />
-            <ListItemText primary={'Arma: 12 mm'} secondary={'Diana:Basica'} />
+            <Avatar alt="Gun " src={gun.src} />
+            <Avatar alt="Dian" src={dian.src} />
+            <ListItemText primary={gun.name} secondary={`${dian.name} ${dian.distance}`} />
           </ListItem>
 
           <Dialog
@@ -89,14 +105,55 @@ export default class RequestPassword extends React.Component {
                 {'Selecciona la diana a ocupar y el arma a utilizar.'}
               </DialogContentText>
               <Grid >
-                <RadioGroup></RadioGroup>
+                <Grid container spacing={16}>
+                  <Grid item md={12}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                      <FormLabel component="legend">Arma</FormLabel>
+                      <RadioGroup
+                        aria-label="Arma"
+                        name="gender1"
+                        className={classes.group}
+                        value={this.state.gun}
+                        onChange={this.handleChange}
+                      >
+                        {
+                          guns.map(gun => (<FormControlLabel key={gun.id} value={gun.id.toString()} control={<Radio />} label={<ListItem >
+                            <Avatar alt="Diana type" src={gun.src} />
+                            <ListItemText primary={gun.name} secondary={gun.details} />
+                          </ListItem>} />))
+                        }
+
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                  <Grid item md={12}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                      <FormLabel component="legend">Diana</FormLabel>
+                      <RadioGroup
+                        aria-label="Diana"
+                        name="gender1"
+                        className={classes.group}
+                        value={this.state.diana}
+                        onChange={this.handleChangeDiana}
+                      >
+                        {
+                          dians.map(dian => (<FormControlLabel key={dian.id} value={dian.id.toString()} control={<Radio />} label={<ListItem >
+                            <Avatar alt="Diana type" src={dian.src} />
+                            <ListItemText primary={dian.name} secondary={dian.distance} />
+                          </ListItem>} />))
+                        }
+
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                </Grid>
               </Grid>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 {'Cancelar'}
               </Button>
-              <Button onClick={() => this.onSend()} color="primary">
+              <Button onClick={() => this.update()} color="primary">
                 {'Actualizar'}
               </Button>
             </DialogActions>
@@ -105,5 +162,9 @@ export default class RequestPassword extends React.Component {
         </React.Fragment>
       </div>
     );
+
+
   }
 }
+
+export default withStyles(styles)(RequestPassword);
