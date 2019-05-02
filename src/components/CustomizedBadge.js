@@ -17,11 +17,11 @@ const styles = theme => ({
 });
 
 function CustomizedBadge(props) {
-  const { classes } = props;
+  const { classes, score = '?' } = props;
 
   return (
     <IconButton aria-label="Cart">
-      <Badge badgeContent={4} color="primary" classes={{ badge: classes.badge }}>
+      <Badge badgeContent={score} color="primary" classes={{ badge: classes.badge }}>
         <StarIcon />
       </Badge>
     </IconButton>
