@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/shotwatcher/precache-manifest.058c12bdbb030543fc0a034ab69be705.js"
+  "/shotwatcher/precache-manifest.5ec984b3d96afc5c771009df4861789e.js"
 );
 
 workbox.clientsClaim();
