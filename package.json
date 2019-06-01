@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
+    "firebase": "^6.1.0",
     "gh-pages": "^1.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
