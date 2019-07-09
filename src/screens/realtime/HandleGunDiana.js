@@ -87,7 +87,7 @@ class RequestPassword extends React.Component {
     return (
       <div>
         <React.Fragment>
-          <Typography>{'Cambia el arma o la diana'}</Typography>
+          <h5>{'Parametros de tiro'}</h5>
           <ListItem button onClick={this.handleClickOpen}>
             <Avatar alt="Gun " src={gun.src} />
             <Avatar alt="Dian" src={dian.src} />
