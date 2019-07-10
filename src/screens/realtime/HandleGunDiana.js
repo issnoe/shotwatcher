@@ -72,6 +72,11 @@ class RequestPassword extends React.Component {
 
   update() {
     this.setState({ open: false, message: 'Configuracion de arma actualizado ' });
+    const gun = guns.find(gun => gun.id === this.state.gun)
+    const dian = dians.find(dian => dian.id === this.state.diana)
+    console.log(gun, dian);
+
+    this.props.update({ gunName: gun.name, dianName: dian.name })
   }
   //auth/remember-password
   //email
@@ -80,9 +85,6 @@ class RequestPassword extends React.Component {
     const { classes } = this.props;
     const gun = guns.find(gun => gun.id === this.state.gun)
     const dian = dians.find(dian => dian.id === this.state.diana)
-    console.log('gun', gun);
-    console.log('dian', dian);
-
 
     return (
       <div>

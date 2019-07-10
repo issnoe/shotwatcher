@@ -19,8 +19,12 @@ import CameraIcon from '@material-ui/icons/Camera';
 import HandleGunDiana from '../screens/realtime/HandleGunDiana'
 import CustomizedBadge from './CustomizedBadge'
 import { WebCamera } from './WebCam'
+import Webcam from "react-webcam";
 import { withGetScreen } from 'react-getscreen'
 import { shots, guns, dians } from '../database/dummy'
+import ButtonBase from '@material-ui/core/ButtonBase';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Perfil from '../screens/login/Perfil'
 
 const WebCameraRender = withGetScreen(WebCamera)
 
@@ -63,55 +67,135 @@ class BottomAppBar extends React.Component {
     super(props)
     this.state = {
       diana: '1',
-      gun: '1'
+      gun: '1',
+      screenshots: [],
+      tab: 0,
+      gunName: '',
+      dianName: ''
     }
+
     this.setShootSettings = this.setShootSettings.bind(this)
+    this.updateSettings = this.updateSettings.bind(this)
+  }
+  updateSettings({ gunName, dianName }) {
+    this.setState({ gunName, dianName }, () => console.log(this.state))
+
   }
 
   setShootSettings(newState) {
     console.log(newState);
   }
+  handleClick = () => {
+    const screenshots = this.state.screenshots
+    const screenshot = {
+      gun: this.state.gunName,
+      dian: this.state.dianName,
+      img: this.webcam.getScreenshot()
+    }
+    screenshots.unshift(screenshot)
+    this.setState({ screenshots });
+    console.log(screenshots);
 
+  }
   render() {
     const { classes } = this.props;
+    const useFrontalCamera = {
+      facingMode: "user"
+    }
+
+    // const _renderScreenShots = this.state.screenshots.map((item) => {
+    //   return (<Grid container spacing={16}>
+    //     <Grid item>
+    //       <ButtonBase style={{
+    //         width: 200,
+    //         height: 200,
+    //       }}>
+    //         {item ? <img style={{
+    //           margin: 'auto',
+    //           display: 'block',
+    //           maxWidth: '100%',
+    //           maxHeight: '100%',
+    //         }} alt="complex" src={item} /> : null}
+    //       </ButtonBase>
+    //     </Grid>
+    //     <Grid item xs={12} sm container>
+    //       <Grid item xs container direction="column" spacing={16}>
+    //         <Grid item xs>
+    //           <Typography gutterBottom variant="subtitle1">
+    //             Captura
+    //           </Typography>
+    //           <Typography gutterBottom>Tiempo de ejecución</Typography>
+    //           <Typography color="textSecondary">ID: 1030114</Typography>
+    //         </Grid>
+    //         <Grid item>
+    //           <Typography style={{ cursor: 'pointer' }}>Eliminar</Typography>
+    //         </Grid>
+    //       </Grid>
+    //       <Grid item>
+    //         <Typography variant="subtitle1">2 tiros</Typography>
+    //       </Grid>
+    //     </Grid>
+    //   </Grid>)
+    // })
+    const _renderScreenShots = this.state.screenshots.map((item, index) => {
+      const arrayLength = this.state.screenshots.length
+      const puntage = index === 0 ? undefined : 5
+      return (<Fragment key={`frag_${index}`}>
+
+        <ListItem button>
+          <ButtonBase style={{
+            width: 200,
+            height: 200,
+          }}>
+            {item ? <img style={{
+              margin: 'auto',
+              display: 'block',
+              maxWidth: '100%',
+              maxHeight: '100%',
+            }} alt="complex" src={item.img} /> : null}
+          </ButtonBase>
+          <ListItemText primary={item.gun} secondary={item.dian} />
+
+          {puntage === undefined && <div>  <CustomizedBadge ></CustomizedBadge><h5>Procesando</h5><CircularProgress color="secondary" /></div>}
+          {puntage && <div>  <CustomizedBadge score={puntage}></CustomizedBadge></div>}
+
+
+        </ListItem>
+      </Fragment>)
+    })
     return (
       <React.Fragment>
         <CssBaseline />
         <Typography className={classes.text} variant="h5" gutterBottom>
-          <HandleGunDiana setShootSettings={this.setShootSettings}></HandleGunDiana>
+          <HandleGunDiana update={this.updateSettings} setShootSettings={this.setShootSettings}></HandleGunDiana>
         </Typography>
         <Grid container spacing={16}>
+
           <Grid item md={6} xs={12}>
-            <WebCameraRender></WebCameraRender>
+            <Webcam
+              videoConstraints={useFrontalCamera}
+              audio={false}
+              width='100%'
+              height='80%'
+              ref={node => this.webcam = node}
+            />
           </Grid>
           <Grid item md={6} xs={12} style={{ maxHeight: 500, overflow: 'auto' }}>
-
             <List className={classes.list}>
-              {shots.map((shot) => (
-                <Fragment key={shot.id}>
-                  {shot.id === 1 && <ListSubheader className={classes.subHeader}>Today</ListSubheader>}
-                  {shot.id === 3 && <ListSubheader className={classes.subHeader}>Yesterday</ListSubheader>}
-                  <ListItem button>
-                    <CustomizedBadge score={shot.score}></CustomizedBadge>
-                    <Avatar alt="Gun" src={shot.gun.src} />
-                    <Avatar alt="Diana type" src={shot.diana.src} />
-                    <ListItemText primary={shot.gun.name} secondary={shot.diana.name} />
-                  </ListItem>
-                </Fragment>
-              ))}
+              <ListSubheader className={classes.subHeader}>Prueba en curso</ListSubheader>
+              {_renderScreenShots}
             </List>
-
           </Grid>
 
         </Grid>
 
         <AppBar position="fixed" color="primary" className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
-            <IconButton color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
+            <Perfil />
             <Fab color="secondary" aria-label="Add" className={classes.fabButton}  >
-              <CameraIcon />
+              <CameraIcon onClick={() => {
+                this.handleClick()
+              }} />
             </Fab>
             <div>
               <ListItem button>
@@ -120,19 +204,19 @@ class BottomAppBar extends React.Component {
                     <Typography component="span" style={{
                       color: 'white'
                     }}>
-                      Luis Noé Jasso
+                      Alvarado Jasso
                       </Typography>
                     <Typography style={{
                       color: 'white'
                     }}>
-                      {" — Nivel Dios"}
+                      {" — Cap.1/o. I.C.E."}
                     </Typography>
                   </React.Fragment>
                 } />
                 <Avatar alt="Profile Picture" style={{
                   width: 55,
                   height: 55,
-                }} src={'./img/guns/s.jpg'} />
+                }} src={'./img/user.png'} />
               </ListItem>
             </div>
           </Toolbar>
