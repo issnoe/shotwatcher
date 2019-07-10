@@ -83,12 +83,12 @@ class LoginPage extends Component {
             <div className={classes.root}>
                 <div className={classes.wrapper}>
                     {/* <BusyLoader /> */}
-                    <Grid container>
+                    {/* <Grid container>
                         <Grid item className={classes.imgResponsive}>
                             <img className={classes.nameLogo} src="./img/name.png" alt="Name logo" />
                         </Grid>
 
-                    </Grid>
+                    </Grid> */}
                     <Paper className={classes.paper} elevation={4}>
                         <Grid container>
 
