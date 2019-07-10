@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
-import StarIcon from '@material-ui/icons/Star';
+import StarIcon from '@material-ui/icons/MyLocation';
+
 
 const styles = theme => ({
   badge: {
@@ -23,6 +24,7 @@ function CustomizedBadge(props) {
     <IconButton aria-label="Cart">
       <Badge badgeContent={score} color="primary" classes={{ badge: classes.badge }}>
         <StarIcon />
+
       </Badge>
     </IconButton>
   );
