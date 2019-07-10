@@ -1,13 +1,13 @@
 {
   "main.css": "/shotwatcher/static/css/main.e63efe76.chunk.css",
-  "main.js": "/shotwatcher/static/js/main.60eca82d.chunk.js",
-  "main.js.map": "/shotwatcher/static/js/main.60eca82d.chunk.js.map",
+  "main.js": "/shotwatcher/static/js/main.b2946f46.chunk.js",
+  "main.js.map": "/shotwatcher/static/js/main.b2946f46.chunk.js.map",
   "static/js/1.382a8ba2.chunk.js": "/shotwatcher/static/js/1.382a8ba2.chunk.js",
   "static/js/1.382a8ba2.chunk.js.map": "/shotwatcher/static/js/1.382a8ba2.chunk.js.map",
   "runtime~main.js": "/shotwatcher/static/js/runtime~main.6ce4bf17.js",
   "runtime~main.js.map": "/shotwatcher/static/js/runtime~main.6ce4bf17.js.map",
   "static/css/main.e63efe76.chunk.css.map": "/shotwatcher/static/css/main.e63efe76.chunk.css.map",
   "index.html": "/shotwatcher/index.html",
-  "precache-manifest.53b9001dc5c025c996ebc957868be353.js": "/shotwatcher/precache-manifest.53b9001dc5c025c996ebc957868be353.js",
+  "precache-manifest.8d583cc2abc087c7fadadb4eeb8bb317.js": "/shotwatcher/precache-manifest.8d583cc2abc087c7fadadb4eeb8bb317.js",
   "service-worker.js": "/shotwatcher/service-worker.js"
 }

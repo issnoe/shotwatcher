@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "60eca82df30c9ceb438a",
+    "revision": "b2946f4654ce6589467b",
     "url": "/shotwatcher/static/css/main.e63efe76.chunk.css"
   },
   {
-    "revision": "60eca82df30c9ceb438a",
-    "url": "/shotwatcher/static/js/main.60eca82d.chunk.js"
+    "revision": "b2946f4654ce6589467b",
+    "url": "/shotwatcher/static/js/main.b2946f46.chunk.js"
   },
   {
     "revision": "382a8ba23c48d73a29bf",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/shotwatcher/static/js/runtime~main.6ce4bf17.js"
   },
   {
-    "revision": "d21aad7187df585bac08c27084d73732",
+    "revision": "ced2117a13f34e79b31515c126f0e6cd",
     "url": "/shotwatcher/index.html"
   }
 ];
